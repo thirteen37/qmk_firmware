@@ -2,13 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  RGB_SLD
-};
+#include "lysp.h"
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
