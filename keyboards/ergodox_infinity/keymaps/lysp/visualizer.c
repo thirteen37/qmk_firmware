@@ -35,14 +35,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "system/serial_link.h"
 #include "default_animations.h"
 
-static const uint32_t logo_background_color = LCD_COLOR(0, 0, 255);
-static const uint32_t initial_color = LCD_COLOR(84, 255, 255);
+static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xff);
+static const uint32_t initial_color = LCD_COLOR(0x00, 0x00, 0x00);
 
 static const uint32_t led_emulation_colors[4] = {
-  LCD_COLOR(0, 0, 255),
-  LCD_COLOR(141, 255, 255),
-  LCD_COLOR(18, 255, 255),
-  LCD_COLOR(194, 255, 255),
+  LCD_COLOR(0x00, 0x00, 0x00),
+  LCD_COLOR(0xff, 0xff, 0xff),
+  LCD_COLOR(0x54, 0xff, 0xff),
+  LCD_COLOR(0xa8, 0xff, 0xff),
 };
 
 static uint32_t next_led_target_color = 0;
@@ -135,7 +135,7 @@ static inline bool is_led_on(visualizer_user_data_t* user_data, uint8_t num) {
 }
 
 static uint8_t get_led_index_master(visualizer_user_data_t* user_data) {
-  for (int i=0; i < 4; i++) {
+  for (int i=0; i < 3; i++) {
     if (is_led_on(user_data, i)) {
       return i + 1;
     }
