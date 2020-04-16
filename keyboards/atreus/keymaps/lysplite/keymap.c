@@ -7,6 +7,7 @@
 #define _QW 0
 #define _RS 1
 #define _LW 2
+#define _SD 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = LAYOUT( /* Qwerty */
@@ -35,24 +36,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   KC_UP,   KC_F7,   KC_F8,   KC_F9,   KC_F10  ,
   KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11  ,
   KC_NO,   KC_VOLU, KC_NO,   KC_NO,   RESET,                     KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F12  ,
-  KC_NO,   KC_VOLD, TO(_QW), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS )
+  KC_NO,   KC_VOLD, TO(_QW), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS ),
+/* Super Duper */
+[_SD] = LAYOUT( /* [> Super Duper <] */
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_TRNS ,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
 
+// Super Duper
+
+enum combo_events {
+  SD,
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
+const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [SD] = COMBO_ACTION(sd_combo),
 };
+
+
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+  case SD:
+    if (pressed) {
+      layer_on(_SD);
+    } else {
+      layer_off(_SD);
+      unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
+    }
+    break;
+  }
+}
