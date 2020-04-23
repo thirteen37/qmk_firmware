@@ -49,19 +49,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Super Duper
 
 enum combo_events {
-  SD,
+  SUPERDUPER,
 };
 
-const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM sd_combo[] = {KC_ESC, KC_TAB, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [SD] = COMBO_ACTION(sd_combo),
+  [SUPERDUPER] = COMBO_ACTION(sd_combo),
 };
 
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
-  case SD:
+  case SUPERDUPER:
     if (pressed) {
       layer_on(_SD);
     } else {
