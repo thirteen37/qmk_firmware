@@ -8,6 +8,7 @@
 #define _RS 1
 #define _LW 2
 #define _SD 3
+#define _MK 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = LAYOUT( /* Qwerty */
@@ -43,19 +44,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_TRNS ,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ),
+/* Mouse keys */
+[_MK] = LAYOUT( /* [> Mouse keys <] */
+  KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
+  KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS ),
+
 };
 
 
 // Super Duper
 
-enum combo_events {
+enum combos {
   SUPERDUPER,
+  MK,
 };
 
 const uint16_t PROGMEM sd_combo[] = {KC_ESC, KC_TAB, COMBO_END};
+const uint16_t PROGMEM mk_combo[] = {KC_QUOT, KC_ENT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [SUPERDUPER] = COMBO_ACTION(sd_combo),
+  [MK] = COMBO_ACTION(mk_combo),
 };
 
 
@@ -67,6 +78,13 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     } else {
       layer_off(_SD);
       unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
+    }
+    break;
+  case MK:
+    if (pressed) {
+      layer_on(_MK);
+    } else {
+      layer_off(_MK);
     }
     break;
   }
