@@ -15,6 +15,9 @@
 #elif defined(KEYBOARD_kinesis_kintlc)
 #    include "kintlc.h"
 #endif
+#ifdef KEYBOARD_kinesis_thirteen37
+	#include "thirteen37.h"
+#endif
 
 #include "quantum.h"
 
