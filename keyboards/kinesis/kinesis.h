@@ -7,6 +7,9 @@
 #ifdef KEYBOARD_kinesis_stapelberg
 	#include "stapelberg.h"
 #endif
+#ifdef KEYBOARD_kinesis_thirteen37
+	#include "thirteen37.h"
+#endif
 
 #include "quantum.h"
 
