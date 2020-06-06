@@ -16,6 +16,9 @@
 #ifdef KEYBOARD_kinesis_kint36
 	#include "kint36.h"
 #endif
+#ifdef KEYBOARD_kinesis_thirteen37
+	#include "thirteen37.h"
+#endif
 
 #include "quantum.h"
 
