@@ -9,6 +9,8 @@
 #define PROG  6 /* "Program" layer */
 #define PROGS 7 /* Shifted "program" layer */
 
+enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK };
+
 /****************************************************************************************************
 *
 * Keymap: Default Layer in Qwerty
@@ -110,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [PROG] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  DF(QWERT),DF(DVORK),TO(WIN),  TO(MAC),  TO(PC),   CK_TOGG,       RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,   DVORAK,   TO(WIN),  TO(MAC),  TO(PC),   CK_TOGG,       RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -134,6 +136,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 };
 
-bool led_update_user(led_t led_state) {
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+        case QWERTY:
+            set_single_persistent_default_layer(QWERT);
+            return false;
+        case DVORAK:
+            set_single_persistent_default_layer(DVORK);
+            return false;
+        }
+    }
     return true;
 }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (state & 1<<EMBED) {
+        keypad_led_on();
+    } else {
+        keypad_led_off();
+    }
+    return state;
+};
