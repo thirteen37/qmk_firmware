@@ -1,6 +1,32 @@
 #include "thirteen37.h"
 
+#ifdef AUDIO_ENABLE
+float caps_on_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float caps_off_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+float num_on_song[][2] = SONG(NUM_LOCK_ON_SOUND);
+float num_off_song[][2] = SONG(NUM_LOCK_OFF_SOUND);
+float scroll_on_song[][2] = SONG(SCROLL_LOCK_ON_SOUND);
+float scroll_off_song[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
+#endif
+
 bool led_update_kb(led_t led_state) {
+#ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        if (led_state.caps_lock) PLAY_SONG(caps_on_song); else PLAY_SONG(caps_off_song);
+        caps_state = led_state.caps_lock;
+    }
+    static uint8_t num_state = 0;
+    if (num_state != led_state.num_lock) {
+        if (led_state.num_lock) PLAY_SONG(num_on_song); else PLAY_SONG(num_off_song);
+        num_state = led_state.num_lock;
+    }
+    static uint8_t scroll_state = 0;
+    if (scroll_state != led_state.scroll_lock) {
+        if (led_state.scroll_lock) PLAY_SONG(scroll_on_song); else PLAY_SONG(scroll_off_song);
+        scroll_state = led_state.scroll_lock;
+    }
+#endif
     if (led_update_user(led_state)) {
         if (led_state.caps_lock) caps_lock_led_on(); else caps_lock_led_off();
         if (led_state.num_lock) num_lock_led_on(); else num_lock_led_off();
