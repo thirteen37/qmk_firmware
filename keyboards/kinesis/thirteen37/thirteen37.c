@@ -15,8 +15,17 @@ void keyboard_post_init_kb(void) {
     setPinOutput(B13);
     setPinOutput(B14);
     setPinOutput(B15);
+    writePinLow(B12);
+    wait_ms(50);
+    writePinLow(B13);
+    wait_ms(50);
     writePinHigh(B12);
+    writePinLow(B14);
+    wait_ms(50);
     writePinHigh(B13);
+    writePinLow(B15);
+    wait_ms(50);
     writePinHigh(B14);
+    wait_ms(50);
     writePinHigh(B15);
 }
