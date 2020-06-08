@@ -159,16 +159,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (state & 1<<EMBED) {
-        keypad_led_on();
+    bool keypad_state = (state & 1<<EMBED);
 #ifdef AUDIO_ENABLE
-        PLAY_SONG(keypad_on_song);
-#endif
-    } else {
-        keypad_led_off();
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(keypad_off_song);
-#endif
+    static bool last_keypad_state = 0;
+    if (last_keypad_state != keypad_state) {
+        if (keypad_state) PLAY_SONG(keypad_on_song); else PLAY_SONG(keypad_off_song);
+        last_keypad_state = keypad_state;
     }
+#endif
+    if (keypad_state) keypad_led_on(); else keypad_led_off();
     return state;
 };
