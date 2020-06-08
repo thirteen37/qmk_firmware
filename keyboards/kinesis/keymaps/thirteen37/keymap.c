@@ -11,6 +11,13 @@
 
 enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK };
 
+#ifdef AUDIO_ENABLE
+#define KEYPAD_ON_SOUND E__NOTE(_A4), E__NOTE(_B4),
+#define KEYPAD_OFF_SOUND E__NOTE(_B4), E__NOTE(_A4),
+float keypad_on_song[][2] = SONG(KEYPAD_ON_SOUND);
+float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
+#endif
+
 /****************************************************************************************************
 *
 * Keymap: Default Layer in Qwerty
@@ -154,8 +161,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (state & 1<<EMBED) {
         keypad_led_on();
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(keypad_on_song);
+#endif
     } else {
         keypad_led_off();
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(keypad_off_song);
+#endif
     }
     return state;
 };
