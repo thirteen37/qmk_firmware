@@ -3,19 +3,27 @@
 /* Layer definitions */
 #define QWERT  0 /* Base QWERTY */
 #define DVORK  1 /* Base Dvorak */
-#define TH_WIN 2 /* Thumb Win */
-#define TH_MAC 3 /* Thumb Mac */
-#define TH_PC  4 /* Thumb PC */
-#define EMBED  5 /* "Embedded" layer */
-#define PROG   6 /* "Program" layer */
-#define PROGS  7 /* Shifted "program" layer */
-#define MACREC 8 /* Macro recording layer */
-#define MACPLY 9 /* Macro playback layer */
+#define COLMK  2 /* Base Colemak */ 
+#define WRKMN  3 /* Base Workman */
+/* Add custom base layers here */
+
+#define TH_WIN 8 /* Thumb Win */
+#define TH_MAC 9 /* Thumb Mac */
+#define TH_PC  10 /* Thumb PC */
+/* Add custom thumb layers here */
+
+#define EMBED  16 /* "Embedded" layer */
+#define PROG   17 /* "Program" layer */
+#define PROGS  18 /* Shifted "program" layer */
+#define MACREC 19 /* Macro recording layer */
+#define MACPLY 20 /* Macro playback layer */
+/* Add other layers here */
 
 #define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC))
 
 /* Custom keycodes */
-enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, WIN, MAC, PC };
+enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
+                       WIN, MAC, PC };
 
 /* Custom audio */
 #ifdef AUDIO_ENABLE
@@ -93,6 +101,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                           ),
 
+  [COLMK] = LAYOUT_pretty(
+    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  TG(EMBED),MO(PROG),
+    KC_EQL,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,
+    KC_TAB,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,                                                                      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  KC_BSLS,
+    KC_CAPS,  KC_A,     KC_R,     KC_S,     KC_T,     KC_D,                                                                      KC_H,     KC_N,     KC_E,     KC_I,     KC_O,     KC_QUOT,
+    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                                                      KC_K,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+              KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
+                                                      KC_LCTL,  KC_LALT,                                               KC_RGUI,  KC_RCTL,
+                                                                KC_HOME,                                               KC_PGUP,
+                                            KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
+                          ),
+
+  [WRKMN] = LAYOUT_pretty(
+    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  TG(EMBED),MO(PROG),
+    KC_EQL,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,
+    KC_TAB,   KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,                                                                      KC_J,     KC_F,     KC_U,     KC_P,     KC_SCLN,  KC_BSLS,
+    KC_CAPS,  KC_A,     KC_S,     KC_H,     KC_T,     KC_G,                                                                      KC_Y,     KC_N,     KC_E,     KC_O,     KC_I,     KC_QUOT,
+    KC_LSFT,  KC_Z,     KC_X,     KC_M,     KC_C,     KC_V,                                                                      KC_K,     KC_L,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+              KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
+                                                      KC_LCTL,  KC_LALT,                                               KC_RGUI,  KC_RCTL,
+                                                                KC_HOME,                                               KC_PGUP,
+                                            KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
+                          ),
+
   [TH_WIN] = LAYOUT_pretty(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -154,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          ),
 
   [PROGS] = LAYOUT_pretty(
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  AU_TOG,        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  COLEMAK,  WORKMAN,  _______,  _______,  _______,  AU_TOG,        EEP_RST,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -199,6 +231,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case DVORAK:
             set_single_persistent_default_layer(DVORK);
+            return false;
+        case COLEMAK:
+            set_single_persistent_default_layer(COLMK);
+            return false;
+        case WORKMAN:
+            set_single_persistent_default_layer(WRKMN);
             return false;
         case WIN:
             layer_and(~TH_LAYER_MASK);
