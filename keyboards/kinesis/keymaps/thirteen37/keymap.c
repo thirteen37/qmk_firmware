@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+/* Layer definitions */
 #define QWERT  0 /* Base QWERTY */
 #define DVORK  1 /* Base Dvorak */
 #define TH_WIN 2 /* Thumb Win */
@@ -11,8 +12,10 @@
 
 #define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC))
 
+/* Custom keycodes */
 enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, WIN, MAC, PC };
 
+/* Custom audio */
 #ifdef AUDIO_ENABLE
 #define KEYPAD_ON_SOUND E__NOTE(_A4), E__NOTE(_B4),
 #define KEYPAD_OFF_SOUND E__NOTE(_B4), E__NOTE(_A4),
@@ -25,6 +28,16 @@ float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
 float thumb_mac_song[][2] = SONG(THUMB_MAC_SOUND);
 float thumb_pc_song[][2] = SONG(THUMB_PC_SOUND);
 #endif
+
+/* EEPROM */
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t thumb_state :8;
+  };
+} user_config_t;
+
+user_config_t user_config;
 
 /****************************************************************************************************
 *
@@ -218,6 +231,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         }
         last_thumb_state = thumb_state;
+        user_config.thumb_state = thumb_state;
+        eeconfig_update_user(user_config.raw);
     }
     return state;
 };
+
+void keyboard_post_init_user(void) {
+    user_config.raw = eeconfig_read_user();
+
+    /* Set thumb layer */
+    layer_on(user_config.thumb_state);
+}
+
+void eeconfig_init_user(void) {
+    user_config.raw = 0;
+    user_config.thumb_state = TH_WIN;
+    eeconfig_update_user(user_config.raw);
+}
