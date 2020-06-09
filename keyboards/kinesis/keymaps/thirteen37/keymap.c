@@ -1,21 +1,29 @@
 #include QMK_KEYBOARD_H
 
-#define QWERT 0 /* Base QWERTY */
-#define DVORK 1 /* Base Dvorak */
-#define WIN   2 /* Thumb Win */
-#define MAC   3 /* Thumb Mac */
-#define PC    4 /* Thumb PC */
-#define EMBED 5 /* "Embedded" layer */
-#define PROG  6 /* "Program" layer */
-#define PROGS 7 /* Shifted "program" layer */
+#define QWERT  0 /* Base QWERTY */
+#define DVORK  1 /* Base Dvorak */
+#define TH_WIN 2 /* Thumb Win */
+#define TH_MAC 3 /* Thumb Mac */
+#define TH_PC  4 /* Thumb PC */
+#define EMBED  5 /* "Embedded" layer */
+#define PROG   6 /* "Program" layer */
+#define PROGS  7 /* Shifted "program" layer */
 
-enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK };
+#define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC))
+
+enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, WIN, MAC, PC };
 
 #ifdef AUDIO_ENABLE
 #define KEYPAD_ON_SOUND E__NOTE(_A4), E__NOTE(_B4),
 #define KEYPAD_OFF_SOUND E__NOTE(_B4), E__NOTE(_A4),
 float keypad_on_song[][2] = SONG(KEYPAD_ON_SOUND);
 float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
+#define THUMB_WIN_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), E__NOTE(_E6), E__NOTE(_D6),
+#define THUMB_MAC_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), E__NOTE(_GS5), E__NOTE(_A6),
+#define THUMB_PC_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), Q__NOTE(_D6),
+float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
+float thumb_mac_song[][2] = SONG(THUMB_MAC_SOUND);
+float thumb_pc_song[][2] = SONG(THUMB_PC_SOUND);
 #endif
 
 /****************************************************************************************************
@@ -70,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                           ),
 
-  [WIN] = LAYOUT_pretty(
+  [TH_WIN] = LAYOUT_pretty(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -82,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                            ),
 
-  [MAC] = LAYOUT_pretty(
+  [TH_MAC] = LAYOUT_pretty(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -94,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                            ),
 
-  [PC] = LAYOUT_pretty(
+  [TH_PC] = LAYOUT_pretty(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -104,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       KC_LCTL,  KC_LALT,                                               KC_RALT,  KC_RCTL,
                                                                 KC_HOME,                                               KC_PGUP,
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
-                       ),
+                          ),
 
   [EMBED] = LAYOUT_pretty(
     _______,  KC_LGUI,  KC_RALT,  KC_APP,   KC_MPLY,  KC_MPRV, KC_MNXT,  KC_CALC,   XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  TG(EMBED),_______,
@@ -119,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [PROG] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,   DVORAK,   TO(WIN),  TO(MAC),  TO(PC),   CK_TOGG,       RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,   DVORAK,   WIN,      MAC,      PC,       CK_TOGG,       RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -153,13 +161,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case DVORAK:
             set_single_persistent_default_layer(DVORK);
             return false;
+        case WIN:
+            layer_and(~TH_LAYER_MASK);
+            layer_on(TH_WIN);
+            return false;
+        case MAC:
+            layer_and(~TH_LAYER_MASK);
+            layer_on(TH_MAC);
+            return false;
+        case PC:
+            layer_and(~TH_LAYER_MASK);
+            layer_on(TH_PC);
+            return false;
         }
     }
     return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    bool keypad_state = (state & 1<<EMBED);
+    /* keypad layer */
+    bool keypad_state = layer_state_is(EMBED);
 #ifdef AUDIO_ENABLE
     static bool last_keypad_state = 0;
     if (last_keypad_state != keypad_state) {
@@ -168,5 +189,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
 #endif
     if (keypad_state) keypad_led_on(); else keypad_led_off();
+    /* persistent thumb cluster toggles */
+    static layer_state_t last_thumb_state = TH_WIN;
+    layer_state_t thumb_state = TH_WIN;
+    if (layer_state_is(TH_WIN)) {
+        thumb_state = TH_WIN;
+    } else if (layer_state_is(TH_MAC)) {
+        thumb_state = TH_MAC;
+    } else if (layer_state_is(TH_PC)) {
+        thumb_state = TH_PC;
+    }
+    if (last_thumb_state != thumb_state) {
+        switch (thumb_state) {
+        case TH_WIN:
+#ifdef AUDIO_ENABLE
+            PLAY_SONG(thumb_win_song);
+#endif
+            break;
+        case TH_MAC:
+#ifdef AUDIO_ENABLE
+            PLAY_SONG(thumb_mac_song);
+#endif
+            break;
+        case TH_PC:
+#ifdef AUDIO_ENABLE
+            PLAY_SONG(thumb_pc_song);
+#endif
+            break;
+        }
+        last_thumb_state = thumb_state;
+    }
     return state;
 };
