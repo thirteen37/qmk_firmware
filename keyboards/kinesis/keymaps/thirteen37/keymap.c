@@ -193,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     /* keypad layer */
-    bool keypad_state = layer_state_is(EMBED);
+    bool keypad_state = layer_state_cmp(state, EMBED);
 #ifdef AUDIO_ENABLE
     static bool last_keypad_state = 0;
     if (last_keypad_state != keypad_state) {
@@ -203,16 +203,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
     if (keypad_state) keypad_led_on(); else keypad_led_off();
     /* persistent thumb cluster toggles */
-    static layer_state_t last_thumb_state = TH_WIN;
     layer_state_t thumb_state = TH_WIN;
-    if (layer_state_is(TH_WIN)) {
+    if (layer_state_cmp(state, TH_WIN)) {
         thumb_state = TH_WIN;
-    } else if (layer_state_is(TH_MAC)) {
+    } else if (layer_state_cmp(state, TH_MAC)) {
         thumb_state = TH_MAC;
-    } else if (layer_state_is(TH_PC)) {
+    } else if (layer_state_cmp(state, TH_PC)) {
         thumb_state = TH_PC;
     }
-    if (last_thumb_state != thumb_state) {
+    if (user_config.thumb_state != thumb_state) {
         switch (thumb_state) {
         case TH_WIN:
 #ifdef AUDIO_ENABLE
@@ -230,7 +229,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
             break;
         }
-        last_thumb_state = thumb_state;
         user_config.thumb_state = thumb_state;
         eeconfig_update_user(user_config.raw);
     }
