@@ -43,6 +43,8 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(B13);
     setPinOutput(B14);
     setPinOutput(B15);
+
+    keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {
@@ -60,6 +62,8 @@ void keyboard_post_init_kb(void) {
     scroll_lock_led_off();
     wait_ms(50);
     keypad_led_off();
+
+    keyboard_post_init_user();
 }
 
 /* LED helpers */
