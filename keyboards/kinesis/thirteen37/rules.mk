@@ -6,6 +6,8 @@ BOOTLOADER =
 
 EXTRA_FLAGS =
 
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+
 # This board has issues with the "full" Bootmagic
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 COMMAND_ENABLE = yes        # Commands for debug and configuration
