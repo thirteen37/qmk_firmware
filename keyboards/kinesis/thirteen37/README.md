@@ -19,7 +19,7 @@ much of the functionality of the newer [Advantage
 2](https://kinesis-ergo.com/support/advantage2/) keyboards and more:
 
 * QWERTY and Dvorak base layouts persisted to EEPROM.
-* Embedded numpa, multimedia controls on keypad layer.
+* Embedded numpad, multimedia controls on keypad layer.
 * Windows, Mac, and PC thumb clusters, which can be used in
   combination with any base layout. They are also persisted in EEPROM.
 * Audible key clicks which can be toggled persistently.
@@ -38,3 +38,11 @@ To build the firmware with this keymap:
 The firmware should also work with the `default` keymap:
 
     qmk compile -kb kinesis/thirteen37 -km default
+
+## Notes
+
+* For some reason, using `BOOTMAGIC_ENABLE = full` causes issues with
+  caps lock, etc. You can still use `lite`. To compensate, I've
+  enabled [Command
+  mode](https://docs.qmk.fm/#/feature_command?id=command).
+* I'm still trying to figure out the PWM on the STM32.
