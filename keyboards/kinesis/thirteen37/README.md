@@ -34,3 +34,7 @@ Differences and extras:
 To build the firmware with this keymap:
 
     qmk compile -kb kinesis/thirteen37 -km thirteen37
+
+The firmware should also work with the `default` keymap:
+
+    qmk compile -kb kinesis/thirteen37 -km default
