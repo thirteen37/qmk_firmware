@@ -8,9 +8,10 @@
 #define WRKMN  3 /* Base Workman */
 /* Add custom base layers here */
 
-#define TH_WIN 8 /* Thumb Win */
-#define TH_MAC 9 /* Thumb Mac */
-#define TH_PC  10 /* Thumb PC */
+#define TH_WIN  8 /* Thumb Win */
+#define TH_MAC  9 /* Thumb Mac */
+#define TH_PC   10 /* Thumb PC */
+#define TH_LYSP 11 /* Thumb PC */
 /* Add custom thumb layers here */
 
 #define EMBED  16 /* "Embedded" layer */
@@ -20,11 +21,11 @@
 #define MACPLY 20 /* Macro playback layer */
 /* Add other layers here */
 
-#define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC))
+#define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC) | (1UL<<TH_LYSP))
 
 /* Custom keycodes */
 enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
-                       WIN, MAC, PC };
+                       WIN, MAC, PC, LYSP };
 
 /* Custom audio */
 #ifdef AUDIO_ENABLE
@@ -33,6 +34,7 @@ float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
 float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
 float thumb_mac_song[][2] = SONG(THUMB_MAC_SOUND);
 float thumb_pc_song[][2] = SONG(THUMB_PC_SOUND);
+float thumb_lysp_song[][2] = SONG(PLOVER_SOUND);
 #endif
 
 /* EEPROM */
@@ -127,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
+              _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
                                                       KC_LCTL,  KC_LALT,                                               KC_RGUI,  KC_RCTL,
                                                                 KC_HOME,                                               KC_PGUP,
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
@@ -139,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
+              _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
                                                       KC_LGUI,  KC_LALT,                                               KC_RCTL,  KC_RGUI,
                                                                 KC_HOME,                                               KC_PGUP,
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
@@ -156,6 +158,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 KC_HOME,                                               KC_PGUP,
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                           ),
+
+  [TH_LYSP] = LAYOUT_pretty(
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+    KC_LGUI,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+              _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
+                                                      KC_LCTL,  KC_LALT,                                               KC_RALT,  KC_RCTL,
+                                                                KC_HOME,                                               KC_PGUP,
+                                            KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
+                            ),
 
   [EMBED] = LAYOUT_pretty(
     _______,  KC_LGUI,  KC_RALT,  KC_APP,   KC_MPLY,  KC_MPRV, KC_MNXT,  KC_CALC,   XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  TG(EMBED),_______,
@@ -182,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          ),
 
   [PROGS] = LAYOUT_pretty(
-    _______,  _______,  _______,  COLEMAK,  WORKMAN,  _______,  _______,  _______,  AU_TOG,        EEP_RST,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  COLEMAK,  WORKMAN,  LYSP,     _______,  _______,  AU_TOG,        EEP_RST,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -246,6 +260,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_and(~TH_LAYER_MASK);
             layer_on(TH_PC);
             return false;
+        case LYSP:
+            layer_and(~TH_LAYER_MASK);
+            layer_on(TH_LYSP);
+            return false;
         }
     }
     return true;
@@ -286,6 +304,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case TH_PC:
 #ifdef AUDIO_ENABLE
             PLAY_SONG(thumb_pc_song);
+#endif
+            break;
+        case TH_LYSP:
+#ifdef AUDIO_ENABLE
+            PLAY_SONG(thumb_lysp_song);
 #endif
             break;
         }
