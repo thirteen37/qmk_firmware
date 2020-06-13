@@ -1,5 +1,4 @@
-#ifndef LYSP_H
-#define LYSP_H
+#pragma once
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -7,5 +6,3 @@ enum custom_keycodes {
   VRSN,
   RGB_SLD
 };
-
-#endif
