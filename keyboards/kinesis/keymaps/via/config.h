@@ -1,0 +1,10 @@
+#pragma once
+
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6060
+
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COL 0
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4096
