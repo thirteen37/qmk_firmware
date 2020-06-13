@@ -3,6 +3,7 @@
 #include "action_layer.h"
 #include "version.h"
 #include "lysp.h"
+#include "ergodox_leds.h"
 
 #define BASE 0 // Default layer
 #define FNKY 1 // Fn and media
@@ -10,8 +11,8 @@
 #define GAME 3 // Gamepad
 #define GAMEFN 4 // Gamepad Fn
 
+#ifdef LAYOUT_ergodox
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [BASE] = LAYOUT_ergodox(
 		 // Left hand
 		 KC_GRV,   KC_1,    KC_2,    KC_3,  KC_4,    KC_5,          KC_ESC,
@@ -115,6 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		 KC_TRNS, KC_TRNS, KC_TRNS
   ),
 };
+#endif
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
