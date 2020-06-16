@@ -29,8 +29,6 @@ enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
 
 /* Custom audio */
 #ifdef AUDIO_ENABLE
-float keypad_on_song[][2] = SONG(KEYPAD_ON_SOUND);
-float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
 float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
 float thumb_mac_song[][2] = SONG(THUMB_MAC_SOUND);
 float thumb_pc_song[][2] = SONG(THUMB_PC_SOUND);
@@ -270,16 +268,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    /* keypad layer */
-    bool keypad_state = layer_state_cmp(state, EMBED);
-#ifdef AUDIO_ENABLE
-    static bool last_keypad_state = 0;
-    if (last_keypad_state != keypad_state) {
-        if (keypad_state) PLAY_SONG(keypad_on_song); else PLAY_SONG(keypad_off_song);
-        last_keypad_state = keypad_state;
-    }
-#endif
-    if (keypad_state) keypad_led_on(); else keypad_led_off();
     /* persistent thumb cluster toggles */
     layer_state_t thumb_state = TH_WIN;
     if (layer_state_cmp(state, TH_WIN)) {
@@ -331,4 +319,8 @@ void eeconfig_init_user(void) {
     user_config.raw = 0;
     user_config.thumb_state = TH_WIN;
     eeconfig_update_user(user_config.raw);
+}
+
+bool is_keypad_layer(layer_state_t state) {
+    return layer_state_cmp(state, EMBED);
 }

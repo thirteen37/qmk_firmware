@@ -1,5 +1,6 @@
 #include "thirteen37.h"
 #include "leds.h"
+#include "sounds.h"
 
 #ifdef AUDIO_ENABLE
 float caps_on_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
@@ -8,7 +9,11 @@ float num_on_song[][2] = SONG(NUM_LOCK_ON_SOUND);
 float num_off_song[][2] = SONG(NUM_LOCK_OFF_SOUND);
 float scroll_on_song[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 float scroll_off_song[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
+float keypad_on_song[][2] = SONG(KEYPAD_ON_SOUND);
+float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
 #endif
+
+__attribute__((weak)) bool is_keypad_layer(layer_state_t state);
 
 bool led_update_kb(led_t led_state) {
 #ifdef AUDIO_ENABLE
@@ -60,4 +65,23 @@ void keyboard_post_init_kb(void) {
     keypad_led_off();
 
     keyboard_post_init_user();
+}
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
+    /* keypad layer */
+    bool keypad_state = is_keypad_layer(state);
+#ifdef AUDIO_ENABLE
+    static bool last_keypad_state = 0;
+    if (last_keypad_state != keypad_state) {
+        if (keypad_state) PLAY_SONG(keypad_on_song); else PLAY_SONG(keypad_off_song);
+        last_keypad_state = keypad_state;
+    }
+#endif
+    keypad_led(!keypad_state);
+    return state;
+}
+
+bool is_keypad_layer(layer_state_t state) {
+    return false;
 }
