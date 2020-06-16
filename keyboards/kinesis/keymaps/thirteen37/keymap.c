@@ -3,7 +3,7 @@
 /* Layer definitions */
 #define QWERT  0 /* Base QWERTY */
 #define DVORK  1 /* Base Dvorak */
-#define COLMK  2 /* Base Colemak */ 
+#define COLMK  2 /* Base Colemak */
 #define WRKMN  3 /* Base Workman */
 /* Add custom base layers here */
 
@@ -27,10 +27,6 @@ enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
 
 /* Custom audio */
 #ifdef AUDIO_ENABLE
-#define KEYPAD_ON_SOUND E__NOTE(_A4), E__NOTE(_B4),
-#define KEYPAD_OFF_SOUND E__NOTE(_B4), E__NOTE(_A4),
-float keypad_on_song[][2] = SONG(KEYPAD_ON_SOUND);
-float keypad_off_song[][2] = SONG(KEYPAD_OFF_SOUND);
 #define THUMB_WIN_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), E__NOTE(_E6), E__NOTE(_D6),
 #define THUMB_MAC_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), E__NOTE(_GS5), E__NOTE(_A6),
 #define THUMB_PC_SOUND E__NOTE(_GS5), E__NOTE(_A5), S__NOTE(_REST), Q__NOTE(_D6),
@@ -256,16 +252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    /* keypad layer */
-    bool keypad_state = layer_state_cmp(state, EMBED);
-#ifdef AUDIO_ENABLE
-    static bool last_keypad_state = 0;
-    if (last_keypad_state != keypad_state) {
-        if (keypad_state) PLAY_SONG(keypad_on_song); else PLAY_SONG(keypad_off_song);
-        last_keypad_state = keypad_state;
-    }
-#endif
-    if (keypad_state) keypad_led_on(); else keypad_led_off();
     /* persistent thumb cluster toggles */
     layer_state_t thumb_state = TH_WIN;
     if (layer_state_cmp(state, TH_WIN)) {
@@ -310,4 +296,8 @@ void eeconfig_init_user(void) {
     user_config.raw = 0;
     user_config.thumb_state = TH_WIN;
     eeconfig_update_user(user_config.raw);
+}
+
+bool is_keypad_layer(layer_state_t state) {
+    return layer_state_cmp(state, EMBED);
 }
