@@ -4,6 +4,8 @@ MCU = STM32F303
 # Bootloader selection
 BOOTLOADER =
 
+SRC += leds.c
+
 EXTRA_FLAGS =
 
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
