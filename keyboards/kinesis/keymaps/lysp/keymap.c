@@ -288,6 +288,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         thumb_state = TH_MAC;
     } else if (layer_state_cmp(state, TH_PC)) {
         thumb_state = TH_PC;
+    } else if (layer_state_cmp(state, TH_LYSP)) {
+        thumb_state = TH_LYSP;
     }
     if (user_config.thumb_state != thumb_state) {
         switch (thumb_state) {
