@@ -27,8 +27,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = \
             KC_LGUI,       KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,     KC_SCLN, KC_QUOT,    KC_ENT, \
             KC_LSFT,         KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,      KC_DOT,  KC_SLSH,    KC_RSFT, \
             MO(_FN), KC_LALT, KC_LCTL,              KC_SPC,                  KC_RCTL, KC_RALT, \
-            KC_UP, \
-            KC_LEFT, KC_DOWN, KC_RGHT \
+                                                                                               KC_UP, \
+                                                                                     KC_LEFT, KC_DOWN, KC_RGHT \
             ),
      [_FN] = \
      LAYOUT(
@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = \
             _______,         _______, _______, _______, _______, _______, _______, KC_VOLU, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,         _______, \
             _______,             _______, _______, _______, _______, _______, _______, KC_VOLD, KC_END, KC_PGDN, KC_DOWN,                _______, \
             _______, _______, _______,                        TO(_RS),                      _______, _______, \
-            KC_PGUP, \
-            KC_HOME, KC_PGDN, KC_END \
+                                                                                                              KC_PGUP, \
+                                                                                                     KC_HOME, KC_PGDN, KC_END \
             ),
      [_RS] = \
      LAYOUT(
@@ -47,26 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = \
             _______,         KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN2, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,           _______, \
             _______,              _______, _______, _______, _______, _______, _______, XXXXXXX, KC_P1,   KC_P2,   KC_P3,                 _______, \
             TO(_BL), _______, _______,                        _______,                      KC_P0,   KC_PDOT, \
-            _______, \
-            _______, _______, _______ \
+                                                                                                              _______, \
+                                                                                                     _______, _______, _______ \
             ),
     };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	/* keyevent_t event = record->event; */
-
-	switch (id) {
-
-	}
-	return MACRO_NONE;
-}
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
