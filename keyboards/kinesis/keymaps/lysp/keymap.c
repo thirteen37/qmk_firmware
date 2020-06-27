@@ -11,7 +11,8 @@
 #define TH_WIN  8 /* Thumb Win */
 #define TH_MAC  9 /* Thumb Mac */
 #define TH_PC   10 /* Thumb PC */
-#define TH_LYSP 11 /* Thumb PC */
+#define TH_LYSP 11 /* Thumb Lysp */
+#define TH_VILE 12 /* Thumb Vile */
 /* Add custom thumb layers here */
 
 #define EMBED  16 /* "Embedded" layer */
@@ -21,11 +22,11 @@
 #define MACPLY 20 /* Macro playback layer */
 /* Add other layers here */
 
-#define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC) | (1UL<<TH_LYSP))
+#define TH_LAYER_MASK ((1UL<<TH_WIN) | (1UL<<TH_MAC) | (1UL<<TH_PC) | (1UL<<TH_LYSP) | (1UL<<TH_VILE))
 
 /* Custom keycodes */
 enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
-                       WIN, MAC, PC, LYSP };
+                       WIN, MAC, PC, LYSP, VILE };
 
 /* Custom audio */
 #ifdef AUDIO_ENABLE
@@ -33,6 +34,7 @@ float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
 float thumb_mac_song[][2] = SONG(THUMB_MAC_SOUND);
 float thumb_pc_song[][2] = SONG(THUMB_PC_SOUND);
 float thumb_lysp_song[][2] = SONG(PLOVER_SOUND);
+float thumb_vile_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
 /* EEPROM */
@@ -169,6 +171,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
                             ),
 
+  [TH_VILE] = LAYOUT_pretty(
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+    GUI_T(KC_ESC), _______,  _______,  _______,  _______,  _______,                                                              _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
+              _______,  _______,  _______,  _______,                                                                                       _______,  _______,  _______,  _______,
+                                                      KC_LCTL,  KC_LALT,                                               KC_RGUI,  KC_RCTL,
+                                                                KC_HOME,                                               KC_PGUP,
+                                            KC_BSPC,  KC_DEL,   KC_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
+                           ),
+
   [EMBED] = LAYOUT_pretty(
     _______,  KC_LGUI,  KC_RALT,  KC_APP,   KC_MPLY,  KC_MPRV, KC_MNXT,  KC_CALC,   XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  TG(EMBED),_______,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  KC_NLCK,  KC_PEQL,  KC_PSLS,  KC_PAST,  XXXXXXX,
@@ -194,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          ),
 
   [PROGS] = LAYOUT_pretty(
-    _______,  _______,  _______,  COLEMAK,  WORKMAN,  LYSP,     _______,  _______,  AU_TOG,        EEP_RST,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  COLEMAK,  WORKMAN,  LYSP,     VILE,     _______,  AU_TOG,        EEP_RST,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                   _______,  _______,  _______,  _______,  _______,  _______,
@@ -262,6 +276,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_and(~TH_LAYER_MASK);
             layer_on(TH_LYSP);
             return false;
+        case VILE:
+            layer_and(~TH_LAYER_MASK);
+            layer_on(TH_VILE);
+            return false;
         }
     }
     return true;
@@ -278,6 +296,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         thumb_state = TH_PC;
     } else if (layer_state_cmp(state, TH_LYSP)) {
         thumb_state = TH_LYSP;
+    } else if (layer_state_cmp(state, TH_VILE)) {
+        thumb_state = TH_VILE;
     }
     if (user_config.thumb_state != thumb_state) {
         switch (thumb_state) {
@@ -299,6 +319,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case TH_LYSP:
 #ifdef AUDIO_ENABLE
             PLAY_SONG(thumb_lysp_song);
+#endif
+            break;
+        case TH_VILE:
+#ifdef AUDIO_ENABLE
+            PLAY_SONG(thumb_vile_song);
 #endif
             break;
         }
