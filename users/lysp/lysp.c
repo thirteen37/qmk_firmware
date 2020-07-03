@@ -96,7 +96,7 @@ void matrix_init_user(void) {
 #endif
 };
 
-#if !defined(KEYBOARD_kinesis)
+#if !defined(KEYBOARD_kinesis) && !defined(KEYBOARD_hhkb_lite_2)
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
