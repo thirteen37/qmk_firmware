@@ -1,2 +1,3 @@
 OPT_DEFS += -DPCBDOWN
-COMBO_ENABLE = yes
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
+COMMAND_ENABLE = no         # Commands for debug and configuration
