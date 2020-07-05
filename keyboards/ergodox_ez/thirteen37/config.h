@@ -1,3 +1,5 @@
+#include "../config.h"
+
 #define DEBUG_MATRIX_SCAN_RATE
 /* Fix debounce for Ergodox OG */
 #undef DEBOUNCE
