@@ -2,7 +2,6 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-#include "lysp.h"
 
 #ifdef LAYOUT_ergodox_pretty
 #define BASE 0 // Default layer
@@ -10,6 +9,12 @@
 #define MSNM 2 // Mouse and numpad
 #define GAME 3 // Gamepad
 #define GAMEFN 4 // Gamepad Fn
+
+enum custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+  VRSN,
+  RGB_SLD
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox_pretty \
@@ -73,18 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 #endif
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            }
-            break;
-    }
-    return MACRO_NONE;
-};
 
 #ifdef RGBLIGHT_COLOR_LAYER_0
 void matrix_init_user(void) {
