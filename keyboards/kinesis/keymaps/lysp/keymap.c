@@ -287,7 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     /* persistent thumb cluster toggles */
-    layer_state_t thumb_state = TH_WIN;
+    layer_state_t thumb_state = user_config.thumb_state;
     if (layer_state_cmp(state, TH_WIN)) {
         thumb_state = TH_WIN;
     } else if (layer_state_cmp(state, TH_MAC)) {
