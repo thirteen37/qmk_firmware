@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Kinesis Classic/Advantage/Contoured",
+    "manufacturer": "QMK",
+    "maintainer": "thirteen37",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+}
