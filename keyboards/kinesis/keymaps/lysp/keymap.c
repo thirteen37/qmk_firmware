@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [PROG] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,   DVORAK,   MAC,      PC,       WIN,      CK_TOGG,       RESET,    DM_RSTP,OSL(MACREC),OSL(MACPLY),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,   DVORAK,   MAC,      PC,       WIN,      CK_TOGG,       QK_BOOT,  DM_RSTP,OSL(MACREC),OSL(MACPLY),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                     _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                     _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,                                                                     _______,  _______,  _______,  _______,  _______,  _______,
