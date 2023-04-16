@@ -10,3 +10,4 @@
      SONG(COLEMAK_SOUND),                        \
      SONG(WORKMAN_SOUND),                        \
     }
+#define ENABLE_COMPILE_KEYCODE
