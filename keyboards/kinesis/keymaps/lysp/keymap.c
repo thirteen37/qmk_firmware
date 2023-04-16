@@ -28,6 +28,17 @@
 enum custom_keycodes { QWERTY = SAFE_RANGE, DVORAK, COLEMAK, WORKMAN,
                        WIN, MAC, PC, LYSP, VILE };
 
+/* Combos */
+enum combos {
+  HOME_END_LGUI,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+const uint16_t PROGMEM home_end_combo[] = {KC_HOME, KC_END, COMBO_END};
+combo_t key_combos[] = {
+  [HOME_END_LGUI] = COMBO(home_end_combo, KC_LGUI),
+};
+
 /* Custom audio */
 #ifdef AUDIO_ENABLE
 float thumb_win_song[][2] = SONG(THUMB_WIN_SOUND);
@@ -348,4 +359,8 @@ void eeconfig_init_user(void) {
 
 bool is_keypad_layer(layer_state_t state) {
     return layer_state_cmp(state, EMBED);
+}
+
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    return layer_state_is(TH_LYSP) || layer_state_is(TH_VILE);
 }
