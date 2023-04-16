@@ -11,5 +11,6 @@
      SONG(WORKMAN_SOUND),                        \
     }
 
+#define COMBO_SHOULD_TRIGGER
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define ENABLE_COMPILE_KEYCODE
