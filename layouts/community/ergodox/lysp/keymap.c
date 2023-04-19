@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,
    _______, _______, _______, _______, _______, _______,                   KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, XXXXXXX,_______,
    _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX,_______,
-   _______, _______, _______, _______, _______,                                     KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX,TG(GAME),
+   _______, _______, _______, _______, _______,                                     KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX,TG(GAME),
                                                 _______, _______, _______, _______,
                                                          _______, _______,
                                        _______, KC_INS,  _______, _______, _______, _______
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MSNM] = LAYOUT_ergodox_pretty \
   (
-   _______, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_BSPC,
+   _______, XXXXXXX, KC_BTN3, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_BSPC,
    _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, KC_WH_L, _______, KC_BTN1, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_NO,
    _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_WH_R,                   XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_NO,
    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
@@ -111,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_ergodox_infinity)
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = biton32(state);
 
     ergodox_board_led_off();
