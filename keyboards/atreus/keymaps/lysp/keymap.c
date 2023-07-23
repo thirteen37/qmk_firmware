@@ -19,9 +19,9 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = LAYOUT( /* Qwerty */
-  KC_Q,           KC_W,   KC_E,    KC_R,    KC_T,                       KC_Y,           KC_U,    KC_I,    KC_O,    KC_P    ,
-  KC_A,           KC_S,   KC_D,    KC_F,    KC_G,                       KC_H,           KC_J,    KC_K,    KC_L,    TD(TD_SCLN),
-  KC_Z,           KC_X,   KC_C,    KC_V,    KC_B,                       KC_N,           KC_M,    KC_COMM, KC_DOT,  KC_SLSH ,
+  KC_Q,           KC_W,   KC_E,    KC_R,    KC_T,                       KC_Y,           KC_U,    KC_I,    KC_O,    KC_P          ,
+  KC_A,           KC_S,   KC_D,    KC_F,    KC_G,                       KC_H,           KC_J,    KC_K,    KC_L,    TD(TD_SCLN)   ,
+  KC_Z,           KC_X,   KC_C,    KC_V,    KC_B,                       KC_N,           KC_M,    KC_COMM, KC_DOT,  KC_SLSH       ,
   LT(_SD,KC_ESC), KC_TAB, MO(_RS), KC_LSFT, KC_BSPC,  KC_LCTL, KC_LALT, LT(_MK,KC_SPC), KC_LGUI, KC_MINS, KC_QUOT, SFT_T(KC_ENT) ),
 /*
  *  !       @     [     ]    &        ||      up     7     8     9    *
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RS] = LAYOUT( /* [> RAISE <] */
   KC_EXLM, KC_AT,   KC_LBRC, KC_RBRC, KC_AMPR,                   KC_UP,   KC_7,    KC_8,   KC_9, KC_ASTR ,
   KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR,                   KC_DOWN, KC_4,    KC_5,   KC_6, KC_PLUS ,
-  KC_PERC, KC_CIRC, KC_LCBR, KC_RCBR, KC_EQL,                    KC_GRV,  KC_1,    KC_2,   KC_3, KC_BSLS ,
+  KC_PERC, KC_CIRC, KC_LCBR, KC_RCBR, KC_GRV,                    KC_EQL,  KC_1,    KC_2,   KC_3, KC_BSLS ,
   TG(_LW), KC_INS,  _______, _______, KC_DEL,  _______, _______, _______, _______, KC_DOT, KC_0, _______ ),
 /*
  * insert home   ↑   end   pgup       ||      up     F7     F8    F9     F10
