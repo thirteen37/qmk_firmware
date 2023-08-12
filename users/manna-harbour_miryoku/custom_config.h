@@ -5,3 +5,9 @@
 
 #pragma once
 
+#define EE_HANDS
+
+#undef TAPPING_TERM
+#define TAPPING_TERM 250
+#undef QUICK_TAP_TERM
+#define QUICK_TAP_TERM 100
