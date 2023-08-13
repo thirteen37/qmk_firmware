@@ -8,6 +8,6 @@
 #define EE_HANDS
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 250
+#define TAPPING_TERM 230
 #undef QUICK_TAP_TERM
-#define QUICK_TAP_TERM 100
+#define QUICK_TAP_TERM 120
