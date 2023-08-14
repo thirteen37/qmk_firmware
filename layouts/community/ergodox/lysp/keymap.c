@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    MO(FNKY), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,                                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TG(MSNM),
                                                CTL_T(KC_NO), ALT_T(KC_APP),    RALT_T(KC_NO), RCTL_T(KC_NO),
                                                              KC_HOME,          KC_PGUP,
-                                      KC_BSPC, KC_DEL,       KC_END,           KC_PGDN,       KC_ENT,  KC_SPC
+                                      KC_SPC,  KC_DEL,       KC_END,           KC_PGDN,       KC_ENT,  KC_BSPC
   ),
 
   [FNKY] = LAYOUT_ergodox_pretty \
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______,                                     KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX,TG(GAME),
                                                 _______, _______, _______, _______,
                                                          _______, _______,
-                                       _______, KC_INS,  _______, _______, _______, _______
+                                       _______, _______, _______, _______, _______, KC_INS
   ),
 
   [MSNM] = LAYOUT_ergodox_pretty \
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, TG(GAME),
                                                 _______, _______, _______, _______,
                                                          _______, _______,
-                                       _______, KC_INS,  _______, _______, _______, _______
+                                       _______, _______, _______, _______, _______, KC_INS
   ),
 };
 #endif
