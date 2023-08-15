@@ -6,7 +6,18 @@
 #include QMK_KEYBOARD_H
 
 #include "manna-harbour_miryoku.h"
+#include "features/achordion.h"
 
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_achordion(keycode, record)) { return false; }
+  // Your macros ...
+
+  return true;
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
 
 // Additional Features double tap guard
 
@@ -88,4 +99,34 @@ combo_t key_combos[] = {
   #endif
   COMBO(thumbcombos_fun, KC_APP)
 };
+#endif
+
+// achordion for Atreus
+#ifdef KEYBOARD_atreus
+bool on_left_hand(keypos_t pos) {
+    return (pos.row < 3) && (pos.col < 5);
+}
+
+bool on_right_hand(keypos_t pos) {
+    return (pos.row < 3) && (pos.col > 5);
+}
+
+bool on_thumb(keypos_t pos) {
+    return (pos.row > 2);
+}
+
+bool atreus_opposite_hands(const keyrecord_t* tap_hold_record,
+                           const keyrecord_t* other_record) {
+    return on_thumb(tap_hold_record->event.key) ||
+        on_thumb(other_record->event.key) ||
+        (on_left_hand(tap_hold_record->event.key) ==
+         on_right_hand(other_record->event.key));
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  return atreus_opposite_hands(tap_hold_record, other_record);
+}
 #endif
