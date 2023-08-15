@@ -13,3 +13,5 @@ INTROSPECTION_KEYMAP_C = manna-harbour_miryoku.c # keymaps
 include users/manna-harbour_miryoku/custom_rules.mk
 
 include users/manna-harbour_miryoku/post_rules.mk
+
+SRC += features/achordion.c
