@@ -13,7 +13,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 600;
+  return 400;
 }
 
 // achordion for Atreus
