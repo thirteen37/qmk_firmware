@@ -1,5 +1,17 @@
 #include "thirteen37.h"
 
+// per-key tapping term
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // faster shifts
+        case LSFT_T(KC_F):
+        case RSFT_T(KC_J):
+            return TAPPING_TERM - 40;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   return 600;
 }
