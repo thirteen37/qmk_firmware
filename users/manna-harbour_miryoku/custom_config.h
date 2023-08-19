@@ -12,6 +12,8 @@
 #undef QUICK_TAP_TERM
 #define QUICK_TAP_TERM 120
 
+#define TAPPING_TERM_PER_KEY
+
 // Ergodox extended layout
 #ifdef KEYBOARD_ergodox_ez
 #define MIRYOKU_MAPPING(\
