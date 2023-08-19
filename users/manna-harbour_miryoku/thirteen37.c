@@ -5,7 +5,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
 }
 
 // achordion for Atreus
-#ifdef KEYBOARD_atreus
+#if defined(KEYBOARD_atreus) || defined(KEYBOARD_keyboardio_atreus)
 bool on_left_hand(keypos_t pos) {
     return (pos.row < 3) && (pos.col < 5);
 }
