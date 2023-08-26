@@ -2,6 +2,8 @@
 #include "leds.h"
 #include "sounds.h"
 
+#include QMK_KEYBOARD_H
+
 #ifdef AUDIO_ENABLE
 float caps_on_song[][2] = SONG(CAPS_LOCK_ON_SOUND);
 float caps_off_song[][2] = SONG(CAPS_LOCK_OFF_SOUND);
