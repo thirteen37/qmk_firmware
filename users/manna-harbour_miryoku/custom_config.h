@@ -63,3 +63,31 @@ K20,     K21, K22, K23, K24, KC_CAPS, KC_CAPS, K25, K26, K27, K28, K29, \
 KC_CAPS, XXX, XXX, K32, K33, K34,         K35, K36, K37, XXX, XXX, KC_CAPS \
 )
 #endif
+#ifdef KEYBOARD_kinesis
+#define MIRYOKU_MAPPING( \
+K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09, \
+K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19, \
+K20, K21, K22, K23, K24,                K25, K26, K27, K28, K29, \
+N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39 \
+) \
+LAYOUT( \
+	KC_ESC,  XXX,   XXX,   XXX,   XXX,   XXX,   XXX,   XXX,   XXX, \
+	XXX,     KC_1,  KC_2,  KC_3,  KC_4,  KC_5, \
+	XXX,     K00,   K01,   K02,   K03,   K04, \
+	KC_CAPS, K10,   K11,   K12,   K13,   K14, \
+	KC_LSFT, K20,   K21,   K22,   K23,   K24, \
+	         XXX,   XXX,   XXX,   XXX,        \
+	                              K34,   XXX, \
+	                                     XXX, \
+	                       K32,   K33,   K34, \
+    XXX,   XXX,   XXX,   XXX,   XXX,   XXX,   XXX,   XXX,   XXX, \
+    KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  XXX, \
+    K05,   K06,   K07,   K08,   K09,   XXX, \
+    K15,   K16,   K17,   K18,   K19,   XXX, \
+    K25,   K26,   K27,   K28,   K29,   KC_RSFT, \
+           XXX,   XXX,   XXX,   XXX,        \
+    XXX,   K35,                             \
+    XXX,                                    \
+    K35,   K36,   K37                       \
+)
+#endif
