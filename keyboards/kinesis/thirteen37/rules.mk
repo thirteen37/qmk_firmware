@@ -1,12 +1,6 @@
-# MCU name
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
 SRC += leds.c
 
 EXTRA_FLAGS =
-
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # This board has issues with the "full" Bootmagic
 COMMAND_ENABLE = yes        # Commands for debug and configuration

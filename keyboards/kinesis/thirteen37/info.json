@@ -11,8 +11,17 @@
         "cols": [ "A13", "A14", "A15", "B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8" ],
         "rows": [ "A0", "A1", "A2", "A6", "A7", "A8", "A9", "A10" ]
     },
+    "indicators": {
+        "caps_lock": "B12",
+        "num_lock": "B13",
+        "scroll_lock": "B14",
+        "compose": "B15",
+        "on_state": 0
+    },
     "diode_direction": "ROW2COL",
+    "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [
