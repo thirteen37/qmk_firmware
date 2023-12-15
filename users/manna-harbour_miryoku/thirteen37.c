@@ -6,7 +6,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         // faster shifts
         case LSFT_T(KC_V):
         case RSFT_T(KC_M):
-            return TAPPING_TERM - 60;
+            return TAPPING_TERM - 40;
         default:
             return TAPPING_TERM;
     }
